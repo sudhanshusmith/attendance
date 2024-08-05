@@ -1,13 +1,14 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const dashboardControllers = require('../controllers/dashboard')
+const dashboardControllers = require("../controllers/dashboard");
 
-router.get('/', (req,res)=> {
-  res.send('Backend Running well!!  ')
+router.get("/", (req, res) => {
+  res.send("Welcome to dashboard!");
 });
-router.get('/searchHours/:entry', dashboardControllers.searchHoursByEntryNumber);
-router.get('/allEvents', dashboardControllers.getAllEvents);
+router.post("/addCourse", dashboardControllers.addCourse);
+router.get("/getCourse", dashboardControllers.getCourse);
+router.post("/addAttendance", dashboardControllers.addAttendance);
+router.get("/getAttendanceReport", dashboardControllers.getAttendanceReport);
 
-
-module.exports = router
+module.exports = router;

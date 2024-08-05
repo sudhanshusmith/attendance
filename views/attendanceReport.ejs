@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <title>Node Template App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="text-center mt-10 py-3">
+        <h1 class="text-3xl font-bold">Sem-7 Attendance Report</h1>
+        <h3 class="text-lg text-green-600">Author: Sudhanshu Kumar</h3>
+    </div>
+    <div class="flex justify-center items-center">
+        <table class="table-auto my-5 py-3 border">
+            <thead>
+              <tr class="border-2 border-black">
+                <th class="border-2 border-black py-2 px-4">Course Name/Code</th>
+                <th class="border-2 border-black py-2 px-4">Total Days</th>
+                <th class="border-2 border-black py-2 px-4">Present Days</th>
+                <th class="border-2 border-black py-2 px-4">Absent Days</th>
+                <th class="border-2 border-black py-2 px-4">Attendance Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% attendanceReport.forEach(function(course) { %>
+                <tr class="border-2 border-black">
+                  <td class="border-2 border-black py-2 px-4"><%= course.courseCode %></td>
+                  <td class="border-2 border-black py-2 px-4"><%= course.presentCount + course.absentCount %></td>
+                  <td class="border-2 border-black py-2 px-4"><%= course.presentCount %></td>
+                  <td class="border-2 border-black py-2 px-4"><%= course.absentCount %></td>
+                  <td class="border-2 border-black py-2 px-4"><%= (course.presentCount *100)/(course.presentCount + course.absentCount) %>%</td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+    </div>
+    
+
+
+      
+ 
+</body>
+</html>

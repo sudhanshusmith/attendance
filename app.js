@@ -1,44 +1,39 @@
-// General Imports 
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
-require('express-async-errors');
-const bodyParser = require('body-parser');
+// General Imports
+const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
+require("express-async-errors");
+const bodyParser = require("body-parser");
 
-
-// Security packages 
-const cors = require('cors');
+// Security packages
+const cors = require("cors");
 
 // Routers Import
-const allroutes = require('./routes')
+const allroutes = require("./routes");
 
 // error handler
-const notFoundMiddleware = require('./middleware/not-found');
-const errorHandlerMiddleware = require('./middleware/error-handler');
-
-// Importring Start Counter function
-const {createCounterIfNotExists, createGradeIfNotExists} = require('./utils/counter/createCounter')
+const notFoundMiddleware = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
 // Yeah, work with app now
 const app = express();
-app.use(cors()) // Use this after the variable declaration
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(cors()); // Use this after the variable declaration
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
-
-// using routes 
+app.set("view engine", "ejs"); // setting enjine
+// using routes
 app.use(allroutes);
 
 // using errors component to send error response
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-
 // starting and setting up the server
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to Mongodb Database')
+    console.log("Connected to Mongodb Database");
     app.listen(process.env.PORT, () =>
       console.log(`Server is listening on port ${process.env.PORT}...`)
     );
@@ -48,8 +43,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-
-// Create a counter first doc if it doesn't exist
-createCounterIfNotExists();
-createGradeIfNotExists();
